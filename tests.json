@@ -1,0 +1,37 @@
+{
+  "test1": {
+    "numerator": 1,
+    "denominator": 2,
+    "output": "0.5"
+  },
+  "test2": {
+    "numerator": 2,
+    "denominator": 1,
+    "output": "2"
+  },
+  "test3": {
+    "numerator": 2,
+    "denominator": 3,
+    "output": "0.(6)"
+  },
+  "test4": {
+    "numerator": 1,
+    "denominator": 3,
+    "output": "0.(3)"
+  },
+  "test5": {
+    "numerator": 1,
+    "denominator": 6,
+    "output": "0.1(6)"
+  },
+  "test6": {
+    "numerator": 5,
+    "denominator": 6,
+    "output": "0.8(3)"
+  },
+  "test7": {
+    "numerator": 1,
+    "denominator": 11,
+    "output": "0.(09)"
+  }
+}
