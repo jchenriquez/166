@@ -6,15 +6,17 @@ import (
 	"sort"
 )
 
-func longDivision(memo map[int][]string, currNum int, currDenom int, currStr string) string {
+func longDivision(memo map[int]string, currNum int, currDenom int, currStr string) string {
 	if currNum == 0 {
 		return currStr
 	}
 
-  if currNum < currDenom {
-	  currNum *= 10
-  }
-  var nCurrNum int
+	if currNum < currDenom {
+		currNum *= 10
+	}
+
+	fmt.Printf("currNum %d\n", currNum)
+	var nCurrNum int
 
 	multiplier := sort.Search(10, func(i int) bool {
 		return i*currDenom >= currNum
@@ -24,29 +26,29 @@ func longDivision(memo map[int][]string, currNum int, currDenom int, currStr str
 		multiplier--
 	}
 
-  if multiplier == 0 {
-    nCurrNum = currNum*10
-  } else {
-	  nCurrNum = currNum - multiplier*currDenom
-  }
-
-  fmt.Printf("nCurrNum %d\n", nCurrNum)
-	vals, saw := memo[nCurrNum]
-	currStr = fmt.Sprintf("%s%d", currStr, multiplier)
-  fmt.Printf("currStr %s\n", currStr)
-  fmt.Printf("vals %v\n", vals)
-
-	if saw {
-    for _, val := range vals {
-      if currStr[len(currStr)-(len(val)):] == val {
-        return fmt.Sprintf("%s(%s)", currStr[:len(currStr)-(len(val)*2)], val)
-      }
-    }
+	if multiplier == 0 {
+		nCurrNum = currNum * 10
+	} else {
+		nCurrNum = currNum - multiplier*currDenom
 	}
 
-  vals = append(vals, fmt.Sprintf("%d", multiplier))
-  vals = append(vals, currStr)
-	memo[nCurrNum] = vals
+	fmt.Printf("nCurrNum %d\n", nCurrNum)
+	currStr = fmt.Sprintf("%s%d", currStr, multiplier)
+	val, saw := memo[nCurrNum]
+
+	if saw {
+		reptedVal := fmt.Sprintf("%s%s", val, val)
+
+		if len(currStr) >= len(reptedVal) && reptedVal == currStr[len(currStr)-len(reptedVal):] {
+			return fmt.Sprintf("%s(%s)", currStr[:len(currStr)-len(reptedVal)], val)
+		}
+	}
+
+	if !saw {
+		memo[nCurrNum] = currStr
+	} else {
+		memo[nCurrNum] = fmt.Sprintf("%d", multiplier)
+	}
 
 	return longDivision(memo, nCurrNum, currDenom, currStr)
 }
@@ -58,8 +60,8 @@ func FractionToDecimal(numerator, denominator int) (ret string) {
 		return
 	}
 
-	ret = fmt.Sprintf("0.%s", longDivision(make(map[int][]string), numerator, denominator, ""))
-  fmt.Printf("ret %s\n", ret)
+	ret = fmt.Sprintf("0.%s", longDivision(make(map[int]string), numerator, denominator, ""))
+	fmt.Printf("ret %s\n", ret)
 
 	return
 }

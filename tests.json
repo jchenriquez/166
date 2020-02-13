@@ -33,5 +33,15 @@
     "numerator": 1,
     "denominator": 11,
     "output": "0.(09)"
+  },
+  "test8": {
+    "numerator": 1,
+    "denominator": 12,
+    "output": "0.08(3)"
+  },
+  "test9": {
+    "numerator": 5,
+    "denominator": 12,
+    "output": "0.41(6)"
   }
 }
